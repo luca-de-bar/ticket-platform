@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <th:block th:replace="fragments/bootstrap :: bootstrap"></th:block>
+</head>
+<body>
+  <main class="my-5 container-fluid">
+    <div class="container d-flex flex-row justify-content-center align-items-center">
+      <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-danger">Logout</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

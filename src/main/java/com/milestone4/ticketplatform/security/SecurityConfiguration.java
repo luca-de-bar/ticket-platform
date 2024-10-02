@@ -16,7 +16,7 @@ public class SecurityConfiguration {
         http.authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests()
                     .requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**", "/error").permitAll()
-                    .requestMatchers("/**").permitAll()
+                    .requestMatchers("/**").authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
