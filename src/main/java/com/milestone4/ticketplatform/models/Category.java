@@ -7,15 +7,15 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
+@Table(name = "categories")
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
     @NotNull
-    private String categoryName;
+    private String name;
 
     @NotNull
     private boolean isActive;
@@ -32,12 +32,12 @@ public class Category {
         this.id = id;
     }
 
-    public @NotEmpty @NotNull String getCategoryName() {
-        return categoryName;
+    public @NotEmpty @NotNull String getName() {
+        return name;
     }
 
-    public void setCategoryName(@NotEmpty @NotNull String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(@NotEmpty @NotNull String name) {
+        this.name = name;
     }
 
     @NotNull

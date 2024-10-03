@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="fragments/css :: css-bundle">
+        <!-- CSS UI FRAMEWORKS-->
+    </th:block>
+</head>
+<body>
+    <th:block th:replace="/fragments/navbar :: navbar">
+        <!--NAVBAR-->
+    </th:block>
+        <div class="container w-25 mt-5">
+            <div class="text-center mb-5">
+                <h1 class="fs-2">Crea un nuovo ticket</h1>
+            </div>
+            <form
+                    th:object="${ticket}"
+                    th:action="@{/create}"
+                    th:method="POST">
+
+                <!--OPERATOR-->
+                <div class="mb-4">
+                    <label for="operator" class="form-label">Seleziona un operatore</label>
+                    <select id="operator" class="form-select" th:field="*{operator}">
+                        <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.username}"></option>
+                    </select>
+                </div>
+
+                <!--CUSTOMER-->
+                <div class="mb-4">
+                    <label for="customer" class="form-label">Richiedente :</label>
+                    <select id="customer" class="form-select" th:field="*{customer.id}">
+                        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+                    </select>
+                </div>
+
+                <!--CATEGORY-->
+                <div class="mb-4">
+                    <label for="category" class="form-label">Seleziona una categoria</label>
+                    <select id="category" th:field="*{category}" class="form-select">
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+
+                <!--PRIORITY-->
+                <div class="mb-4">
+                    <label for="priority" class="form-label">Assegna una priorità</label>
+                    <select id="priority" th:field="*{priority}" class="form-select">
+                        <option selected value="High">High</option>
+                        <option selected value="Medium">Medium</option>
+                        <option selected value="Low">Low</option>
+                    </select>
+                </div>
+
+                <!--DESCRIPTION-->
+                <div class="mb-4">
+                    <label for="description" class="form-label">Descrivi il problema</label>
+                    <textarea class="form-control" id="description" rows="3" th:field="*{description}" th:errorclass="is-invalid"></textarea>
+                    <!-- validation feedback -->
+                    <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--STATO TICKET-->
+                <div class="mb-4">
+                    <label for="status" class="form-label">Stato ticket</label>
+                    <select id="status" class="form-select" th:field="*{status}">
+                        <option selected value="Da Fare">Da Fare</option>
+                        <option value="In corso">In corso</option>
+                    </select>
+                </div>
+                <div class="mb-4 d-flex flex-row-reverse justify-content-between align-items-center">
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all">
+                        Crea Ticket
+                    </button>
+                    <a th:href="@{/}">
+                        <button type="button" class="btn btn-danger">Annulla</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+</body>
+</html>

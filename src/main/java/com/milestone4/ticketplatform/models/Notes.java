@@ -19,7 +19,7 @@ public class Notes {
     private String contenuto;
 
     @CreationTimestamp
-    private LocalDateTime dataCreazione;
+    private LocalDateTime creationDate;
 
     //FK Operator ID
     @ManyToOne
@@ -46,12 +46,12 @@ public class Notes {
         this.contenuto = contenuto;
     }
 
-    public LocalDateTime getDataCreazione() {
-        return dataCreazione;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setDataCreazione(LocalDateTime dataCreazione) {
-        this.dataCreazione = dataCreazione;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public Operator getOperator() {

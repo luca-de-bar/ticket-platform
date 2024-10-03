@@ -18,10 +18,25 @@ public class Ticket {
 
     @NotEmpty
     @NotNull
-    private String statoTicket;
+    private String status;
+
+    @NotEmpty
+    @NotNull
+    private String description;
+
+    //Fk CUSTOMER ID
+    @ManyToOne
+    @JoinColumn(name = "customer_id",nullable = false)
+    private Customer customer;
 
     @CreationTimestamp
-    private LocalDateTime dataCreazione;
+    private LocalDateTime creationDate;
+
+    private LocalDateTime closingDate;
+
+    private String priority;
+
+    private String report;
 
     //FK Operator ID
     @ManyToOne
@@ -44,20 +59,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public @NotEmpty @NotNull String getStatoTicket() {
-        return statoTicket;
+    public @NotEmpty @NotNull String getStatus() {
+        return status;
     }
 
-    public void setStatoTicket(@NotEmpty @NotNull String statoTicket) {
-        this.statoTicket = statoTicket;
-    }
-
-    public LocalDateTime getDataCreazione() {
-        return dataCreazione;
-    }
-
-    public void setDataCreazione(LocalDateTime dataCreazione) {
-        this.dataCreazione = dataCreazione;
+    public void setStatus(@NotEmpty @NotNull String status) {
+        this.status = status;
     }
 
     public Operator getOperator() {
@@ -82,5 +89,53 @@ public class Ticket {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public @NotEmpty @NotNull String getDescription() {
+        return description;
+    }
+
+    public void setDescription(@NotEmpty @NotNull String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(LocalDateTime closingDate) {
+        this.closingDate = closingDate;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

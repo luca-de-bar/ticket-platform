@@ -1,11 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <th:block th:replace="fragments/css :: css-bundle">
+        <!-- CSS UI FRAMEWORKS-->
+    </th:block>
 </head>
 <body>
+<th:block th:fragment="navbar">
+    <nav class="bg-white sticky top-0 w-full z-20 start-0 border-b border-gray-200">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-3">
+            <a th:href="@{/}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" class="h-8" alt="Flowbite Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">BlueTickets</span>
+            </a>
+            <div>
+                <div data-bs-toggle="modal" data-bs-target="#exampleModal" class="user-info flex flex-col justify-content-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1e40af" class="size-9">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                    <p sec:authentication="name"></p>
+                </div>
+            </div>
+        </div>
+    </nav>
+        <!-- Modal -->
+        <form th:action="@{/logout}" method="post">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Informazioni utente</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                <li>
+                                    <span class="fw-bold">Username</span> :
+                                    <span sec:authentication="name"></span>
+                                </li>
+                                <li>
+                                    <span class="fw-bold">Ruolo</span> :
+                                    <span sec:authentication="principal.authorities[0]"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer d-flex flex-row justify-content-between align-items-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</th:block>
 
 </body>
 </html>

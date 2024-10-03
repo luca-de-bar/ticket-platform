@@ -12,7 +12,6 @@ import java.util.Set;
 public class Operator {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

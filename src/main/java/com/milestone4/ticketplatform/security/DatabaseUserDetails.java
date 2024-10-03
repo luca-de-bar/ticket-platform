@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class DatabaseUserDetails implements UserDetails {
@@ -17,7 +16,7 @@ public class DatabaseUserDetails implements UserDetails {
     private final String email;
     private final String username;
     private final String password;
-    private final String statoOperatore;
+    private final String status;
     private final Set<GrantedAuthority> authorities;
 
     public DatabaseUserDetails(Operator operator){
@@ -25,7 +24,7 @@ public class DatabaseUserDetails implements UserDetails {
         this.email=operator.getEmail();
         this.username=operator.getUsername();
         this.password=operator.getPassword();
-        this.statoOperatore=operator.getStatoOperatore();
+        this.status=operator.getStatoOperatore();
 
         //Set Authorities
         authorities = new HashSet<GrantedAuthority>();
@@ -47,6 +46,14 @@ public class DatabaseUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return this.username;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getStatus() {
+        return this.status;
     }
 
     @Override

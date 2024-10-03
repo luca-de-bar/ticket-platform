@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BlueTickets</title>
+    <th:block th:replace="fragments/css :: css-bundle">
+        <!-- CSS FRAMEWORK UI -->
+    </th:block>
+</head>
+<body>
+    <th:block th:replace="/fragments/navbar :: navbar">
+        <!--NAVBAR-->
+    </th:block>
+    <main class="px-12">
+        <div sec:authorize="hasAuthority('Admin')">
+            <form th:action="@{/create}" method="GET" class="mt-5 flex flex-row justify-end items-center">
+                <button type="submit" class="btn btn-success px-3">
+                    + Crea
+                </button>
+            </form>
+        </div>
+        <section class="mt-16 flex flex-row justify-center items-center">
+            <div>
+                <section class="tickets-container">
+                    <!-- TICKETS TABLE-->
+                    <div>
+                        <div class="relative overflow-x-auto">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Data Creazione</th>
+                                    <th scope="col" class="px-6 py-3">Richiedente</th>
+                                    <th scope="col" class="px-6 py-3">Operatore</th>
+                                    <th scope="col"  class="px-6 py-3">Priorità</th>
+                                    <th scope="col" class="px-6 py-3 text-center">Categoria</th>
+                                    <th scope="col"  class="px-6 py-3">Stato</th>
+                                    <th scope="col"  class="px-6 py-3">Azioni</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="bg-white border-b text-center" th:each="ticket : ${tickets}">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" th:text="${ticket.creationDate}"></th>
+                                    <td class="px-6 py-4" th:text="${ticket.customer.name}"></td>
+                                    <td class="px-6 py-4" th:text="${ticket.operator.username}"></td>
+                                    <td class="px-6 py-4" th:text="${ticket.priority}"></td>
+                                    <td class="px-6 py-4" th:text="${ticket.category.name}"></td>
+                                    <td class="px-6 py-4" th:text="${ticket.status}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
