@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,6 +33,12 @@ public class Operator {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "operator", cascade = CascadeType.REMOVE)
+    private List<Notes> notes;
+
+    @OneToMany(mappedBy = "operator")
+    private List<Ticket> tickets;
 
     public Operator(){
 
