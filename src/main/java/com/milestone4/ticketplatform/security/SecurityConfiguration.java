@@ -20,7 +20,8 @@ public class SecurityConfiguration {
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .loginProcessingUrl("/autenticazione")
+                    .loginProcessingUrl("/login")
+                    .failureUrl("/login?error")
                     .defaultSuccessUrl("/", true)
                     .permitAll()
                 .and().logout();

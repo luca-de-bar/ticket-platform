@@ -23,7 +23,10 @@
                 </h1>
 
                 <!--LOGIN FORM -->
-                <form class="space-y-4 md:space-y-6 group" th:action="@{/autenticazione}" method="post" id="login-form" novalidate>
+                <form class="space-y-4 md:space-y-6 group" th:action="@{/login}" method="post" id="login-form" novalidate>
+                    <div th:if="${param.error}" class="text-red-500">
+                        Credenziali errate. Per favore riprova.
+                    </div>
                     <div>
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900">
                             Username
@@ -70,6 +73,6 @@
         </div>
     </div>
 </section>
-<script src="/js/loginValidation.js"></script>
+<script th:src="@{/js/loginValidation.js}"></script>
 </body>
 </html>
