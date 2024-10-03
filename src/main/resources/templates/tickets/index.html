@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+ <!--
   <th:block th:replace="fragments/bootstrap :: bootstrap"></th:block>
+ -->
 </head>
 <body>
-  <main class="my-5 container-fluid">
-    <div class="container d-flex flex-row justify-content-center align-items-center">
+  <main class="my-5 flex flex-row justify-center items-center">
+    <div>
       <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-danger">Logout</button>
+        <button type="submit" class="bg-red-500 rounded-md text-white px-5 py-2 hover:bg-red-400">
+            Logout
+        </button>
       </form>
     </div>
   </main>
