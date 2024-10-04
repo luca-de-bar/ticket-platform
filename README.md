@@ -14,7 +14,7 @@ Successivamente ho avuto bisogno di modificare la mia **@Configuration SecurityC
 ```java
 .formLogin()
 .loginPage("/login")
-.loginProcessingUrl("/autenticazione")
+.loginProcessingUrl("/login")
 .defaultSuccessUrl("/", true)
 ```
 Di seguito, i dettagli sul ruolo di ciascun metodo :
