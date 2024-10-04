@@ -8,6 +8,7 @@
     </th:block>
 </head>
 <body>
+<!-- NAVBAR -->
 <th:block th:fragment="navbar">
     <nav class="bg-white sticky top-0 w-full z-20 start-0 border-b border-gray-200">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-3">
@@ -25,7 +26,8 @@
             </div>
         </div>
     </nav>
-        <!-- Modal -->
+
+        <!-- MODAL USER INFO -->
         <form th:action="@{/logout}" method="post">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -35,16 +37,22 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <ul>
-                                <li>
-                                    <span class="fw-bold">Username</span> :
-                                    <span sec:authentication="name"></span>
-                                </li>
-                                <li>
-                                    <span class="fw-bold">Ruolo</span> :
-                                    <span sec:authentication="principal.authorities[0]"></span>
-                                </li>
-                            </ul>
+                             <div class="container">
+                                 <ul>
+                                     <li>
+                                         <span class="fw-bold">Username</span> :
+                                         <span sec:authentication="name"></span>
+                                     </li>
+                                     <li>
+                                         <span class="fw-bold">Ruolo</span> :
+                                         <span sec:authentication="principal.authorities[0]"></span>
+                                     </li>
+                                     <li>
+                                         <span class="fw-bold">Attivo</span> :
+                                         <span sec:authentication="principal.active"></span>
+                                     </li>
+                                 </ul>
+                             </div>
                         </div>
                         <div class="modal-footer d-flex flex-row justify-content-between align-items-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>

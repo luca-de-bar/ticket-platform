@@ -35,6 +35,7 @@ public class TicketController {
     public String index(Model model, Authentication authentication){
         model.addAttribute("tickets",ticketService.findAllSortedByRecent());
         model.addAttribute("username",authentication);
+        model.addAttribute("operators",operatorService.findAll());
         return "/main/index";
     }
 

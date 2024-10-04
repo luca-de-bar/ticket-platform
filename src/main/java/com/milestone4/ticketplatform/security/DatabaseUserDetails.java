@@ -52,6 +52,10 @@ public class DatabaseUserDetails implements UserDetails {
         return this.email;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
