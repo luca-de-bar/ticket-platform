@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,6 @@ public class Ticket {
     @NotNull
     private String description;
 
-    //Fk CUSTOMER ID
     @ManyToOne
     @JoinColumn(name = "customer_id",nullable = false)
     private Customer customer;
@@ -32,18 +32,19 @@ public class Ticket {
     @CreationTimestamp
     private LocalDateTime creationDate;
 
+    @Transient
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     private LocalDateTime closingDate;
 
     private String priority;
 
     private String report;
 
-    //FK Operator ID
     @ManyToOne
     @JoinColumn(name = "operator_id",nullable = false)
     private Operator operator;
 
-    //FK Notes ID
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
     private List<Notes> notes;
 
@@ -99,8 +100,8 @@ public class Ticket {
         this.description = description;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public String getCreationDate() {
+        return creationDate.format(FORMATTER);
     }
 
     public void setCreationDate(LocalDateTime creationDate) {

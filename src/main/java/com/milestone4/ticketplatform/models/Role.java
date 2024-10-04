@@ -32,4 +32,5 @@ public class Role {
     public void setName(@NotNull String name) {
         this.name = name;
     }
+
 }

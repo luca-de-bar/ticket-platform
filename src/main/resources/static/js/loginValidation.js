@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 usernameInput.classList.add("border-red-500")
                 userFeeback.innerHTML = "Perfavore, inserisci un username"
             }
-            else if (passwordInput.value.trim() === ""){
+            if (passwordInput.value.trim() === ""){
                 //prevent submit
                 ev.preventDefault()
 

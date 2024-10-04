@@ -69,4 +69,5 @@ public class Notes {
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
+
 }
