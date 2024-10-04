@@ -43,7 +43,7 @@ Lato server è stato più complicato in quanto la sfida era, sulla medesima pagi
 In questo div, sfrutto il parametro che aggiunge Spring Security all'url di login, dopo un login errato ovvero `login?error` e nel template thymeleaf, verifico la presenza del parametro.
 Se esiste allora il div con "Credenziali errate" viene visualizzato correttamente nel mio form di custom login.
 
-Per attuare questo meccanismo, ho avuto bisogno della [documentazione ufficiale]('https://www.thymeleaf.org/doc/articles/springmvcaccessdata.html) di Thymeleaf sotto la sezione "Request Parameters". (Non è assolutamente farina del mio sacco, questa soluzione è stata applicata anche [QUI](https://stackoverflow.com/questions/13261794/display-error-messages-in-spring-login))
+Per attuare questo meccanismo, ho avuto bisogno della [documentazione ufficiale](https://www.thymeleaf.org/doc/articles/springmvcaccessdata.html) di Thymeleaf sotto la sezione "Request Parameters". (Non è assolutamente farina del mio sacco, questa soluzione è stata applicata anche [QUI](https://stackoverflow.com/questions/13261794/display-error-messages-in-spring-login))
 
 ## Logout
 Per quanto riguarda il logout invece, riferendomi alla [documentazione ufficiale](https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html#:~:text=an%20Identity%20Provider-,Understanding%20Logout%E2%80%99s%20Architecture,exercise%20its%20default%20LogoutSuccessHandler%20which%20redirects%20to%20/login%3Flogout.,-Customizing%20Logout%20URIs) mi basta fare una POST all'endpoint `/logout`e SpringSecurity gestirà il resto.
