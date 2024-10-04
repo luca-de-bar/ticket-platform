@@ -11,61 +11,61 @@
 <th:block th:replace="/fragments/navbar :: navbar">
     <!--NAVBAR-->
 </th:block>
-<div class="container w-25 mt-5">
-    <div class="text-center mb-5">
-        <h1 class="fs-2"><span><strong>Ticket ID</strong></span> : [[ ${ticket.id}]]</h1>
-        <h2 class="fs-4 mt-2"><span><strong>Assegnato a</strong></span> : [[ ${ticket.operator.username} ]]</h2>
+    <div class="container w-25 mt-5">
+        <div class="text-center mb-5">
+            <h1 class="fs-2"><span><strong>Ticket ID</strong></span> : [[ ${ticket.id}]]</h1>
+            <h2 class="fs-4 mt-2"><span><strong>Assegnato a</strong></span> : [[ ${ticket.operator.username} ]]</h2>
+        </div>
+        <form th:object="${ticket}">
+
+            <!--OPERATOR-->
+            <div class="mb-4">
+                <label for="operator" class="form-label">Operatore assegnato</label>
+                <input type="text" id="operator" class="form-control" th:value="${ticket.operator.username}" disabled>
+            </div>
+
+            <!--CUSTOMER-->
+            <div class="mb-4">
+                <label for="customer" class="form-label">Cliente</label>
+                <input type="text" id="customer" class="form-control" th:value="${ticket.customer.name}" disabled>
+            </div>
+
+            <!--CATEGORY-->
+            <div class="mb-4">
+                <label for="category" class="form-label">Categoria</label>
+                <input type="text" id="category" class="form-control" th:value="${ticket.category.name}" disabled>
+            </div>
+
+            <!--PRIORITY-->
+            <div class="mb-4">
+                <label for="priority" class="form-label">Priorità</label>
+                <input type="text" id="priority" class="form-control" th:value="${ticket.priority}" disabled>
+            </div>
+
+            <!--DESCRIPTION-->
+            <div class="mb-4">
+                <label for="description" class="form-label">Assistenza richiesta</label>
+                <textarea class="form-control" id="description" rows="3" th:text="${ticket.description}" disabled></textarea>
+            </div>
+
+            <!--REPORT-->
+            <div class="mb-4">
+                <label for="report" class="form-label">Report intervento</label>
+                <textarea class="form-control" id="report" rows="3" th:text="${ticket.report}" disabled></textarea>
+            </div>
+
+            <!--STATUS-->
+            <div class="mb-4">
+                <label for="status" class="form-label">Stato del ticket</label>
+                <input type="text" id="status" class="form-control" th:value="${ticket.status}" disabled>
+            </div>
+
+            <div class="mb-4 d-flex flex-row-reverse justify-content-between align-items-center">
+                <a th:href="@{/}">
+                    <button type="button" class="btn btn-primary">Torna alla lista dei ticket</button>
+                </a>
+            </div>
+        </form>
     </div>
-    <form th:object="${ticket}">
-
-        <!--OPERATOR-->
-        <div class="mb-4">
-            <label for="operator" class="form-label">Operatore assegnato</label>
-            <input type="text" id="operator" class="form-control" th:value="${ticket.operator.username}" disabled>
-        </div>
-
-        <!--CUSTOMER-->
-        <div class="mb-4">
-            <label for="customer" class="form-label">Cliente</label>
-            <input type="text" id="customer" class="form-control" th:value="${ticket.customer.name}" disabled>
-        </div>
-
-        <!--CATEGORY-->
-        <div class="mb-4">
-            <label for="category" class="form-label">Categoria</label>
-            <input type="text" id="category" class="form-control" th:value="${ticket.category.name}" disabled>
-        </div>
-
-        <!--PRIORITY-->
-        <div class="mb-4">
-            <label for="priority" class="form-label">Priorità</label>
-            <input type="text" id="priority" class="form-control" th:value="${ticket.priority}" disabled>
-        </div>
-
-        <!--DESCRIPTION-->
-        <div class="mb-4">
-            <label for="description" class="form-label">Assistenza richiesta</label>
-            <textarea class="form-control" id="description" rows="3" th:text="${ticket.description}" disabled></textarea>
-        </div>
-
-        <!--REPORT-->
-        <div class="mb-4">
-            <label for="report" class="form-label">Report intervento</label>
-            <textarea class="form-control" id="report" rows="3" th:text="${ticket.report}" disabled></textarea>
-        </div>
-
-        <!--STATUS-->
-        <div class="mb-4">
-            <label for="status" class="form-label">Stato del ticket</label>
-            <input type="text" id="status" class="form-control" th:value="${ticket.status}" disabled>
-        </div>
-
-        <div class="mb-4 d-flex flex-row-reverse justify-content-between align-items-center">
-            <a th:href="@{/}">
-                <button type="button" class="btn btn-primary">Torna alla lista dei ticket</button>
-            </a>
-        </div>
-    </form>
-</div>
 </body>
 </html>

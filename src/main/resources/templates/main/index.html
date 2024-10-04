@@ -19,23 +19,26 @@
                 </button>
             </form>
         </div>
-        <section class="mt-16 flex flex-row justify-center items-center">
+        <div class="container w-25">
+            <th:block th:if="${successMessage}">
+                <div th:replace="fragments/success :: successAlert(${successMessage})"></div>
+            </th:block>
+            <th:block th:if="${dangerMessage}">
+                <div th:replace="fragments/danger :: dangerAlert(${dangerMessage})"></div>
+            </th:block>
+        </div>
+        <section class="mt-12 flex flex-row justify-center items-center">
             <div>
                 <section class="tickets-container">
-                    <th:block th:if="${successMessage}">
-                        <div th:replace="fragments/success :: successAlert(${successMessage})"></div>
-                    </th:block>
-                    <th:block th:if="${dangerMessage}">
-                        <div th:replace="fragments/danger :: dangerAlert(${dangerMessage})"></div>
-                    </th:block>
                     <!-- TICKETS TABLE-->
                     <div>
                         <div class="relative overflow-x-auto">
-                            <table class="w-full text-md text-left rtl:text-right text-gray-500">
+                            <table class="w-full text-md text-left rtl:text-right text-gray-500" th:if="${tickets.size()>0}">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-center">#</th>
                                     <th scope="col" class="px-6 py-3 text-center">Data Creazione</th>
+                                    <th scope="col" class="px-6 py-3 text-center">Chiuso il</th>
                                     <th scope="col" class="px-6 py-3 text-center">Richiedente</th>
                                     <th scope="col" class="px-6 py-3">Operatore</th>
                                     <th scope="col"  class="px-6 py-3">Priorità</th>
@@ -48,6 +51,8 @@
                                 <tr class="bg-white border-b text-center" th:each="ticket : ${tickets}">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" th:text="${ticket.id}"></th>
                                     <th class="px-6 py-4" th:text="${ticket.getFormattedCreationDate()}"></th>
+                                    <th class="px-6 py-4" th:if="${ticket.closingDate != null}" th:text="${ticket.getFormattedClosingDate()}"></th>
+                                    <th class="px-6 py-4" th:if="${ticket.closingDate == null}" th:text="|Non chiuso|"></th>
                                     <td class="px-6 py-4" th:text="${ticket.customer.name}"></td>
                                     <td class="px-6 py-4" th:text="${ticket.operator.username}"></td>
                                     <td class="px-6 py-4" th:text="${ticket.priority}"></td>
@@ -83,6 +88,9 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <section th:unless="${tickets.size()>0}">
+                                <h1 class="fs-2">Non ci sono ticket..</h1>
+                            </section>
 
 
                             <!-- Modal di Eliminazione per ogni libro nella lista -->

@@ -22,13 +22,13 @@
                     th:method="POST">
 
                 <input type="hidden" th:field="*{creationDate}" id="creationDateHidden">
-                <input type="hidden" th:field="*{operator.id}" id="operatorIdHidden">
-                <input type="hidden" th:field="*{priority}" id="priorityHidden">
+                <input sec:authorize="hasAuthority('Operatore')" type="hidden" th:field="*{operator.id}" id="operatorIdHidden">
+                <input sec:authorize="hasAuthority('Operatore')" type="hidden" th:field="*{priority}" id="priorityHidden">
 
                 <!--OPERATOR-->
                 <div class="mb-4" sec:authorize="hasAuthority('Admin')">
                     <label for="operator" class="form-label">Seleziona un operatore</label>
-                    <select id="operator" class="form-select" th:field="*{operator}">
+                    <select id="operator" class="form-select" th:field="*{operator}" th:disabled="${ticket.closingDate != null}">
                         <option selected value="">-- Seleziona un operatore --</option>
                         <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.username}"></option>
                     </select>
@@ -37,7 +37,7 @@
                 <!--CUSTOMER-->
                 <div class="mb-4">
                     <label for="customer" class="form-label">Cliente</label>
-                    <select id="customer" class="form-select" th:field="*{customer.id}">
+                    <select id="customer" class="form-select" th:field="*{customer.id}" th:disabled="${ticket.closingDate != null}">
                         <option selected value="">-- Seleziona il cliente --</option>
                         <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
                     </select>
@@ -46,7 +46,7 @@
                 <!--CATEGORY-->
                 <div class="mb-4">
                     <label for="category" class="form-label">Seleziona una categoria</label>
-                    <select id="category" th:field="*{category}" class="form-select">
+                    <select id="category" th:field="*{category}" class="form-select" th:disabled="${ticket.closingDate != null}">
                         <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                     </select>
                 </div>
@@ -54,7 +54,7 @@
                 <!--PRIORITY-->
                 <div class="mb-4" sec:authorize="hasAuthority('Admin')">
                     <label for="priority" class="form-label">Assegna una priorità</label>
-                    <select id="priority" th:field="*{priority}" class="form-select">
+                    <select id="priority" th:field="*{priority}" class="form-select" th:disabled="${ticket.closingDate != null}">
                         <option selected value="High">High</option>
                         <option selected value="Medium">Medium</option>
                         <option selected value="Low">Low</option>
@@ -63,8 +63,8 @@
 
                 <!--DESCRIPTION-->
                 <div class="mb-4">
-                    <label for="description" class="form-label">Assistenza richiesta</label>
-                    <textarea class="form-control" id="description" rows="3" th:field="*{description}" th:errorclass="is-invalid"></textarea>
+                    <label for="description" class="form-label">Descrivi il problema</label>
+                    <textarea class="form-control" id="description" rows="3" th:field="*{description}" th:errorclass="is-invalid" th:disabled="${ticket.closingDate != null}"></textarea>
                     <!-- validation feedback -->
                     <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
                         <ul>
@@ -76,26 +76,23 @@
                 <!--REPORT-->
                 <div class="mb-4" sec:authorize="hasAuthority('Operatore')">
                     <label for="report" class="form-label">Report intervento</label>
-                    <textarea class="form-control" id="report" rows="3" th:field="*{report}" th:errorclass="is-invalid"></textarea>
-                    <!-- validation feedback -->
-                    <div th:if="${#fields.hasErrors('report')}" class="invalid-feedback">
-                        <ul>
-                            <li th:each="err : ${#fields.errors('report')}" th:text="${err}"></li>
-                        </ul>
-                    </div>
+                    <textarea class="form-control" id="report" rows="3" th:field="*{report}" th:disabled="${ticket.closingDate != null}"></textarea>
                 </div>
 
                 <!--STATO TICKET-->
                 <div class="mb-4">
                     <label for="status" class="form-label">Stato ticket</label>
-                    <select id="status" class="form-select" th:field="*{status}">
+                    <select id="status" class="form-select" th:field="*{status}" th:disabled="${ticket.closingDate != null}">
                         <option value="Da Fare" sec:authorize="hasAuthority('Admin')">Da Fare</option>
                         <option selected value="In corso">In corso</option>
                         <option value="Completato">Completato</option>
                     </select>
                 </div>
+
                 <div class="mb-4 d-flex flex-row-reverse justify-content-between align-items-center">
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all">
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all"
+                            th:disabled="${ticket.closingDate != null}"
+                            th:classappend="${ticket.closingDate != null} ? 'cursor-not-allowed' : ''">
                         Modifica Ticket
                     </button>
                     <a th:href="@{/}">

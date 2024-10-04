@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,6 +41,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "operator_id",nullable = false)
+    //@Formula("SELECT * FROM operators where stato_operatore='true'")
     private Operator operator;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
@@ -114,8 +116,13 @@ public class Ticket {
         return closingDate;
     }
 
-    public void setClosingDate(LocalDateTime closingDate) {
-        this.closingDate = closingDate;
+    public String getFormattedClosingDate(){
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return closingDate.format(FORMATTER);
+    }
+
+    public void setClosingDate() {
+        this.closingDate = LocalDateTime.now();
     }
 
     public String getPriority() {

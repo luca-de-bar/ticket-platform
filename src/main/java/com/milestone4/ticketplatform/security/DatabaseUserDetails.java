@@ -16,7 +16,7 @@ public class DatabaseUserDetails implements UserDetails {
     private final String email;
     private final String username;
     private final String password;
-    private final String status;
+    private final boolean active;
     private final Set<GrantedAuthority> authorities;
 
     public DatabaseUserDetails(Operator operator){
@@ -24,7 +24,7 @@ public class DatabaseUserDetails implements UserDetails {
         this.email=operator.getEmail();
         this.username=operator.getUsername();
         this.password=operator.getPassword();
-        this.status=operator.getStatoOperatore();
+        this.active = operator.isActive();
 
         //Set Authorities
         authorities = new HashSet<GrantedAuthority>();
@@ -50,10 +50,6 @@ public class DatabaseUserDetails implements UserDetails {
 
     public String getEmail() {
         return this.email;
-    }
-
-    public String getStatus() {
-        return this.status;
     }
 
     @Override

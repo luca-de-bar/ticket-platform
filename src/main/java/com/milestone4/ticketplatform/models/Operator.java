@@ -24,7 +24,7 @@ public class Operator {
 
     @NotNull
     @NotEmpty
-    private String statoOperatore;
+    private boolean active;
 
     @NotNull
     @NotEmpty
@@ -67,12 +67,14 @@ public class Operator {
         this.password = password;
     }
 
-    public String getStatoOperatore() {
-        return statoOperatore;
+    @NotNull
+    @NotEmpty
+    public boolean isActive() {
+        return active;
     }
 
-    public void setStatoOperatore(String statoOperatore) {
-        this.statoOperatore = statoOperatore;
+    public void setActive(@NotNull @NotEmpty boolean active) {
+        this.active = active;
     }
 
     public String getEmail() {
