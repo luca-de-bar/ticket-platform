@@ -13,7 +13,8 @@
     </th:block>
         <div class="container w-25 mt-5">
             <div class="text-center mb-5">
-                <h1 class="fs-2">Ticket [[ ${ticket.id}]] assegnato a [[ ${ticket.operator.username} ]]</h1>
+                <h1 class="fs-2"><span><strong>Ticket ID</strong></span> : [[ ${ticket.id}]]</h1>
+                <h2 class="fs-4 mt-2"><span><strong>Assegnato a</strong></span> : [[ ${ticket.operator.username} ]]</h2>
             </div>
             <form
                     th:object="${ticket}"

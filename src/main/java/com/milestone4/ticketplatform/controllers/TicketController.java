@@ -71,6 +71,9 @@ public class TicketController {
     @GetMapping("/show/{id}")
     public String show(@PathVariable("id") Long id, Model model){
         model.addAttribute("ticket",ticketService.findById(id));
+        model.addAttribute("operators",operatorService.findAll());
+        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("customers",customerService.findAll());
         return "/main/show";
     }
 
