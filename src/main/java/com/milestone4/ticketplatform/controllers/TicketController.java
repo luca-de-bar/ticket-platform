@@ -11,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -51,7 +48,6 @@ public class TicketController {
         return "/main/create";
     }
 
-    // Store: Save new customer
     @PostMapping("/create")
     public String store (@Valid @ModelAttribute("ticket") Ticket formTicket,
                          BindingResult bindingResult,
@@ -62,11 +58,56 @@ public class TicketController {
             model.addAttribute("ticket",formTicket);
             model.addAttribute("operators",operatorService.findAll());
             model.addAttribute("categories",categoryService.findAll());
+            model.addAttribute("customers",customerService.findAll());
             return "/main/create";
         } else {
             ticketService.store(formTicket);
-            //attributes.addFlashAttribute("successMessage","Il Ticket " + formTicket.getId() + " è stato creato");
+            attributes.addFlashAttribute("successMessage","Il Ticket " + formTicket.getId() + " è stato creato");
             return "redirect:/";
         }
+    }
+
+    //Show
+    @GetMapping("/show/{id}")
+    public String show(@PathVariable("id") Long id, Model model){
+        model.addAttribute("ticket",ticketService.findById(id));
+        return "/main/show";
+    }
+
+    //edit + update
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model, Authentication authentication){
+        model.addAttribute("ticket",ticketService.findById(id));
+        model.addAttribute("operators",operatorService.findAll());
+        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("customers",customerService.findAll());
+        model.addAttribute("username", authentication);
+        return "/main/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update (@Valid @ModelAttribute("ticket") Ticket formTicket,
+                          BindingResult bindingResult,
+                          RedirectAttributes attributes,
+                          Model model){
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("ticket",formTicket);
+            model.addAttribute("operators",operatorService.findAll());
+            model.addAttribute("categories",categoryService.findAll());
+            model.addAttribute("customers",customerService.findAll());
+        }
+        ticketService.store(formTicket);
+        attributes.addFlashAttribute("successMessage","il Ticket " + formTicket.getId() + " è stato modificato con successo");
+        return "redirect:/";
+    }
+
+    //delete
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id,
+                         RedirectAttributes attributes){
+        ticketService.delete(id);
+        attributes.addFlashAttribute("dangerMessage","Il Ticket " + id + " è stato eliminato correttamente");
+        return "redirect:/";
     }
 }

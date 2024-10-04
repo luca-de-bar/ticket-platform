@@ -13,15 +13,19 @@
     </th:block>
         <div class="container w-25 mt-5">
             <div class="text-center mb-5">
-                <h1 class="fs-2">Crea un nuovo ticket</h1>
+                <h1 class="fs-2">Ticket [[ ${ticket.id}]] assegnato a [[ ${ticket.operator.username} ]]</h1>
             </div>
             <form
                     th:object="${ticket}"
-                    th:action="@{/create}"
+                    th:action="@{/edit/{id}(id=${ticket.id})}"
                     th:method="POST">
 
+                <input type="hidden" th:field="*{creationDate}" id="creationDateHidden">
+                <input type="hidden" th:field="*{operator.id}" id="operatorIdHidden">
+                <input type="hidden" th:field="*{priority}" id="priorityHidden">
+
                 <!--OPERATOR-->
-                <div class="mb-4">
+                <div class="mb-4" sec:authorize="hasAuthority('Admin')">
                     <label for="operator" class="form-label">Seleziona un operatore</label>
                     <select id="operator" class="form-select" th:field="*{operator}">
                         <option selected value="">-- Seleziona un operatore --</option>
@@ -47,7 +51,7 @@
                 </div>
 
                 <!--PRIORITY-->
-                <div class="mb-4">
+                <div class="mb-4" sec:authorize="hasAuthority('Admin')">
                     <label for="priority" class="form-label">Assegna una priorità</label>
                     <select id="priority" th:field="*{priority}" class="form-select">
                         <option selected value="High">High</option>
@@ -58,7 +62,7 @@
 
                 <!--DESCRIPTION-->
                 <div class="mb-4">
-                    <label for="description" class="form-label">Descrivi il problema</label>
+                    <label for="description" class="form-label">Assistenza richiesta</label>
                     <textarea class="form-control" id="description" rows="3" th:field="*{description}" th:errorclass="is-invalid"></textarea>
                     <!-- validation feedback -->
                     <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
@@ -67,17 +71,31 @@
                         </ul>
                     </div>
                 </div>
+
+                <!--REPORT-->
+                <div class="mb-4" sec:authorize="hasAuthority('Operatore')">
+                    <label for="report" class="form-label">Report intervento</label>
+                    <textarea class="form-control" id="report" rows="3" th:field="*{report}" th:errorclass="is-invalid"></textarea>
+                    <!-- validation feedback -->
+                    <div th:if="${#fields.hasErrors('report')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('report')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!--STATO TICKET-->
                 <div class="mb-4">
                     <label for="status" class="form-label">Stato ticket</label>
                     <select id="status" class="form-select" th:field="*{status}">
-                        <option selected value="Da Fare">Da Fare</option>
-                        <option value="In corso">In corso</option>
+                        <option value="Da Fare" sec:authorize="hasAuthority('Admin')">Da Fare</option>
+                        <option selected value="In corso">In corso</option>
+                        <option value="Completato">Completato</option>
                     </select>
                 </div>
                 <div class="mb-4 d-flex flex-row-reverse justify-content-between align-items-center">
                     <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all">
-                        Crea Ticket
+                        Modifica Ticket
                     </button>
                     <a th:href="@{/}">
                         <button type="button" class="btn btn-danger">Annulla</button>

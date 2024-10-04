@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="fragments/css :: css-bundle">
+        <!-- CSS UI FRAMEWORKS-->
+    </th:block>
+</head>
+<body>
+<div class="alert alert-success alert-dismissible fade show my-5" role="alert" th:fragment="successAlert(message)">
+    <span th:text="${message}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+</div>
+</body>
+</html>

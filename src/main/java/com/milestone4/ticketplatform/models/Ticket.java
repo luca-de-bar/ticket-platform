@@ -32,9 +32,6 @@ public class Ticket {
     @CreationTimestamp
     private LocalDateTime creationDate;
 
-    @Transient
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
     private LocalDateTime closingDate;
 
     private String priority;
@@ -100,7 +97,12 @@ public class Ticket {
         this.description = description;
     }
 
-    public String getCreationDate() {
+    public LocalDateTime getCreationDate() {
+        return this.creationDate;
+    }
+
+    public String getFormattedCreationDate(){
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return creationDate.format(FORMATTER);
     }
 

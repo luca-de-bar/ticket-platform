@@ -12,22 +12,9 @@
         <!--NAVBAR-->
     </th:block>
     <main class="px-12">
-        <div sec:authorize="hasAuthority('Admin')">
-            <form th:action="@{/create}" method="GET" class="mt-5 flex flex-row justify-end items-center">
-                <button type="submit" class="btn btn-success px-3">
-                    + Crea
-                </button>
-            </form>
-        </div>
         <section class="mt-16 flex flex-row justify-center items-center">
             <div>
                 <section class="tickets-container">
-                    <th:block th:if="${successMessage}">
-                        <div th:replace="fragments/success :: successAlert(${successMessage})"></div>
-                    </th:block>
-                    <th:block th:if="${dangerMessage}">
-                        <div th:replace="fragments/danger :: dangerAlert(${dangerMessage})"></div>
-                    </th:block>
                     <!-- TICKETS TABLE-->
                     <div>
                         <div class="relative overflow-x-auto">
@@ -45,7 +32,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="bg-white border-b text-center" th:each="ticket : ${tickets}">
+                                <tr class="bg-white border-b text-center" th:object="${ticket}">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" th:text="${ticket.id}"></th>
                                     <th class="px-6 py-4" th:text="${ticket.getFormattedCreationDate()}"></th>
                                     <td class="px-6 py-4" th:text="${ticket.customer.name}"></td>
@@ -55,15 +42,6 @@
                                     <td class="px-6 py-4" th:text="${ticket.status}"></td>
                                     <td class="px-6 py-4">
                                         <div class="flex flex-row justify-center items-center gap-2">
-                                            <!-- VIEW BUTTON -->
-                                            <a th:href="@{/show/{id}(id=${ticket.id})}">
-                                                <button type="button" class="btn btn-primary px-2 py-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                                    </svg>
-                                                </button>
-                                            </a>
                                             <!-- EDIT BUTTON -->
                                             <a th:href="@{/edit/{id}(id=${ticket.id})}">
                                                 <button class="btn btn-warning px-2 py-1">
@@ -83,10 +61,8 @@
                                 </tr>
                                 </tbody>
                             </table>
-
-
                             <!-- Modal di Eliminazione per ogni libro nella lista -->
-                            <div th:each="ticket : ${tickets}" th:id="'deleteModal' + ${ticket.id}" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div th:id="'deleteModal' + ${ticket.id}" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
