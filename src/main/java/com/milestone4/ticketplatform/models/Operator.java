@@ -23,7 +23,6 @@ public class Operator {
     private String password;
 
     @NotNull
-    @NotEmpty
     private boolean active;
 
     @NotNull
@@ -67,13 +66,11 @@ public class Operator {
         this.password = password;
     }
 
-    @NotNull
-    @NotEmpty
     public boolean isActive() {
         return active;
     }
 
-    public void setActive(@NotNull @NotEmpty boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

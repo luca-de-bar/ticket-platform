@@ -25,6 +25,27 @@ public class TicketService {
 
     //Save a new ticket
     public Ticket store (Ticket ticket){
+        //If ticket.status "in corso" set operator.active = false
+       if(ticket.getStatus().equals("In corso")){
+           System.out.println("Ticket in corso!");
+           ticket.getOperator().setActive(false);
+       }
+        return repository.save(ticket);
+    }
+
+    //Update a new ticket
+    public Ticket update (Ticket ticket){
+        //If ticket.status "Da fare" :
+        if (ticket.getStatus().equals("In corso")){
+            ticket.getOperator().setActive(false);
+        }
+        //If ticket.status "completato" :
+        if(ticket.getStatus().equals("Completato")){
+            //Set Operator status : active
+            ticket.getOperator().setActive(true);
+            //Set closing date to LocalDate.now()
+            ticket.setClosingDate();
+        }
         return repository.save(ticket);
     }
 

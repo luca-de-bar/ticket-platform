@@ -23,8 +23,8 @@
                 <!--OPERATOR-->
                 <div class="mb-4">
                     <label for="operator" class="form-label">Seleziona un operatore</label>
-                    <select id="operator" class="form-select" th:field="*{operator}">
-                        <option selected value="">-- Seleziona un operatore --</option>
+                    <select id="operator" class="form-select"  th:disabled="${operators.size()==0}" th:field="*{operator}">
+                        <option selected value="" th:if="${operators.size()==0}" th:text="|Non ci sono operatori disponibili|">-- Seleziona un operatore --</option>
                         <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.username}"></option>
                     </select>
                 </div>

@@ -1,7 +1,7 @@
 INSERT INTO categories (is_active, id, name) VALUES (1,0, 'Hardware Issue');
 INSERT INTO categories (is_active, id, name) VALUES (1,1, 'Software Issue');
 INSERT INTO categories (is_active, id, name) VALUES (1,2, 'Skill Issue');
-INSERT INTO operators (id, email, password, active, username) VALUES (1,'lucadebar33@gmail.com','{noop}password',0,'Luca');
+INSERT INTO operators (id, email, password, active, username) VALUES (1,'lucadebar33@gmail.com','{noop}password',1,'Luca');
 INSERT INTO operators (id, email, password, active, username) VALUES (2,'gianmarcotocco@gmail.com','{noop}password',1,'Giovanni');
 INSERT INTO operators (id, email, password, active, username) VALUES (3,'marzonebello@gmail.com','{noop}password',1,'Mattia');
 INSERT INTO roles (id, name) VALUES (0, 'Admin');

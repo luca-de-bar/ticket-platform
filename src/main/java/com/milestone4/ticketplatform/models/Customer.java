@@ -16,10 +16,8 @@ public class Customer {
     @NotNull
     private String name;
 
-    @NotNull
     private String customerType;
 
-    @NotNull
     private String customerDetails;
 
     @OneToMany(mappedBy = "customer")
@@ -37,19 +35,19 @@ public class Customer {
         this.name = name;
     }
 
-    public @NotNull String getCustomerType() {
+    public String getCustomerType() {
         return customerType;
     }
 
-    public void setCustomerType(@NotNull String customerType) {
+    public void setCustomerType(String customerType) {
         this.customerType = customerType;
     }
 
-    public @NotNull String getCustomerDetails() {
+    public String getCustomerDetails() {
         return customerDetails;
     }
 
-    public void setCustomerDetails(@NotNull String customerDetails) {
+    public void setCustomerDetails(String customerDetails) {
         this.customerDetails = customerDetails;
     }
 

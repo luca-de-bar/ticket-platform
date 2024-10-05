@@ -82,7 +82,7 @@ public class TicketController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model, Authentication authentication){
         model.addAttribute("ticket",ticketService.findById(id));
-        model.addAttribute("operators",operatorService.findActiveOperators());
+        model.addAttribute("operators",operatorService.findAll());
         model.addAttribute("categories",categoryService.findAll());
         model.addAttribute("customers",customerService.findAll());
         model.addAttribute("username", authentication);
@@ -100,13 +100,9 @@ public class TicketController {
             model.addAttribute("operators",operatorService.findAll());
             model.addAttribute("categories",categoryService.findAll());
             model.addAttribute("customers",customerService.findAll());
-            bindingResult.getAllErrors().forEach(error -> System.out.println(error.toString()));
             return "/main/edit";
         }
-            if(formTicket.getStatus().equals("Completato")){
-                formTicket.setClosingDate();
-            }
-            ticketService.store(formTicket);
+            ticketService.update(formTicket);
             attributes.addFlashAttribute("successMessage","il Ticket " + formTicket.getId() + " è stato modificato con successo");
             return "redirect:/";
     }
