@@ -76,7 +76,8 @@ Ora, dalla vista non devo fare altro che rendere visibili gli operatori. Ho quin
 La consegna richiede che l'operatore loggato, sia in grado di impostare il proprio stato **'attivo'** o **'disattivo'** a piacimento.
 Tuttavia, il focus princiale è quello di impedire ad un Operatore attualmente attivo, di disattivarsi se ha dei ticket con stato 'Da Fare'.
 
-Per fare ciò ho prima predisposto un `OperatorController` che risponde alle rotte `/operator/**`.
+Per fare ciò ho prima predisposto un `OperatorController` che risponde alle rotte `/operator/**`. Ho quindi configurato un metodo apposito su
+OperatorService che esegue la validazione, infine un metodo che ricevesse la POST per l'operazione di persistenza.
 - Il metodo `checkAndUpdateStatus()` su OperatorService che esegue il controllo vero e proprio sull'operatore.
 - il metodo `updateStatus()` che esegue l'operazione di persistenza sul database.
 
