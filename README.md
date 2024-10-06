@@ -72,3 +72,42 @@ Ora, dalla vista non devo fare altro che rendere visibili gli operatori. Ho quin
         </select>
     </div>
 ```
+## Stato operatore
+La consegna richiede che l'operatore loggato, sia in grado di impostare il proprio stato **'attivo'** o **'disattivo'** a piacimento.
+Tuttavia, per poter impostare lo stato 'disattivo' (ed evitare pertanto che altri ticket vengano assegnati al medesimo operatore) è necessario assicurarsi che l'operatore **NON** abbia ticket con stato 'Da Fare'.
+
+Per fare ciò ho prima predisposto un `OperatorController` che risponde alle rotte `/operator/**`.
+- Il metodo personalArea() risponde alla GET su `{/id}`per la visualizzazione del form.
+- Il metodo changeStatus() risponde alla POST su `{/id}` e aggiorna lo stato dell'operatore.
+
+Nel metodo changeStatus() ho effettuato la verifica dei ticket per l'operatore in questo modo : 
+
+```java
+    @PostMapping("/{id}")
+    public String changeStatus(@ModelAttribute("operator") Operator formOperator,
+                               RedirectAttributes attributes){
+        //Controllo il valore passato dal form, se true procedo in persistenza, altrimenti se false controllo i ticket.
+        if(formOperator.isActive()){
+            operatorService.update(formOperator);
+            attributes.addFlashAttribute("operatorSuccess","Stato aggiornato correttamente!");
+        } else {
+            //Se L'operatore ha ticket :
+            if (!formOperator.getTickets().isEmpty()){
+                //Ciclo us ogni ticket dell'operatore e verifico se ci sono status 'Da Fare' o 'In corso'
+                for(Ticket ticket : formOperator.getTickets()){
+                    if(ticket.getStatus().equals("Da Fare") || ticket.getStatus().equals("In corso")){
+                        attributes.addFlashAttribute("operatorAlert","Spiacente, hai ancora dei ticket da completare");
+                        break;
+                    }
+                }
+                //Se l'operatore non ha ticket :
+            } else {
+                operatorService.update(formOperator);
+                attributes.addFlashAttribute("operatorSuccess","Stato aggiornato correttamente!");
+            }
+        }
+        return "redirect:/operator/{id}";
+    }
+```
+
+Essendo lo 'status' dell'operatore, un valore booleano, non faccio altro che verificare se lo stato impostato dal form è 'false' (quindi, l'operatore desidera disattivarsi), in tal caso effettuo una verifica sui ticket dell'operatore con un ciclo ForEach e se vengono trovati ticket con stato 'Da Fare' o 'In corso', sarà impossibile per l'operatore disattivarsi.
