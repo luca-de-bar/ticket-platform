@@ -23,7 +23,9 @@ public class SecurityConfiguration {
                     .loginProcessingUrl("/login")
                     .defaultSuccessUrl("/", true)
                     .permitAll()
-                .and().logout();
+                .and().logout()
+                .and()
+                .csrf().disable();
         return http.build();
     }
 

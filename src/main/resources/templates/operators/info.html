@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="fragments/css :: css-bundle">
+        <!-- CSS UI FRAMEWORKS-->
+    </th:block>
+</head>
+<body>
+    <main>
+        <!-- ALERTS -->
+        <div>
+            <th:block th:if="${operatorSuccess}">
+                <div th:replace="fragments/operatorSuccess :: operatorSuccess(${operatorSuccess})"></div>
+            </th:block>
+            <th:block th:if="${operatorAlert}">
+                <div th:replace="fragments/operatorAlert :: operatorAlert(${operatorAlert})"></div>
+            </th:block>
+        </div>
+        <section>
+            <form
+                  th:object="${operator}"
+                  th:action="@{/operator/{id}(id=${operator.id})}"
+                  th:method="POST">
+
+                <!-- HIDDEN INPUTS -->
+                <input type="hidden" th:field="*{username}" id="operatorUsername">
+                <input type="hidden" th:field="*{password}" id="operatorPassword">
+                <input type="hidden" th:field="*{email}" id="operatorEmail">
+                <input type="hidden" th:field="*{tickets}" id="operatorTickets">
+
+                <div class="mb-3">
+                    <label for="status">Stato operatore</label>
+                    <select id="status" th:field="*{active}">
+                        <option value="true">Attivo</option>
+                        <option value="false">In Pausa</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Conferma</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,15 +1,17 @@
 package com.milestone4.ticketplatform.services;
 
 import com.milestone4.ticketplatform.models.Operator;
+import com.milestone4.ticketplatform.models.Ticket;
 import com.milestone4.ticketplatform.repositories.OperatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class OperatorService {
+public class OperatorService{
 
     @Autowired
     private OperatorRepository repository;
@@ -19,7 +21,23 @@ public class OperatorService {
         return repository.findAll(Sort.by("username"));
     }
 
+    //Active operators
     public List<Operator>findActiveOperators(){
         return repository.findByActiveTrue();
+    }
+
+    //Find by id
+    public Operator findById(Long id){
+        return repository.findById(id).get();
+    }
+
+    //Find by username
+    public Optional <Operator> findByUsername(String username){
+        return repository.findByUsername(username);
+    }
+
+    //Update Operator
+    public Operator update (Operator operator){
+        return repository.save(operator);
     }
 }

@@ -35,7 +35,7 @@ public class Operator {
     @OneToMany(mappedBy = "operator", cascade = CascadeType.REMOVE)
     private List<Notes> notes;
 
-    @OneToMany(mappedBy = "operator")
+    @OneToMany(mappedBy = "operator", fetch = FetchType.EAGER)
     private List<Ticket> tickets;
 
     public Operator(){

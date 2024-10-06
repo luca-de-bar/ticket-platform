@@ -27,10 +27,15 @@ public class DatabaseUserDetails implements UserDetails {
         this.active = operator.isActive();
 
         //Set Authorities
-        authorities = new HashSet<GrantedAuthority>();
+        authorities = new HashSet<>();
         for (Role role : operator.getRoles()){
             authorities.add((new SimpleGrantedAuthority(role.getName())));
         }
+    }
+
+
+    public Long getId() {
+        return this.id;
     }
 
     @Override

@@ -33,7 +33,6 @@
                 <div class="mb-4">
                     <label for="customer" class="form-label">Cliente</label>
                     <select id="customer" class="form-select" th:field="*{customer.id}">
-                        <option selected value="">-- Seleziona il cliente --</option>
                         <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
                     </select>
                 </div>

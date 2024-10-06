@@ -1,5 +1,6 @@
 package com.milestone4.ticketplatform.controllers;
 
+import com.milestone4.ticketplatform.models.Operator;
 import com.milestone4.ticketplatform.models.Ticket;
 import com.milestone4.ticketplatform.services.CategoryService;
 import com.milestone4.ticketplatform.services.CustomerService;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -36,6 +39,10 @@ public class TicketController {
         model.addAttribute("tickets",ticketService.findAllSortedByRecent());
         model.addAttribute("username",authentication);
         model.addAttribute("operators",operatorService.findAll());
+
+        //pass current operator for status change button
+        Optional<Operator> operator = operatorService.findByUsername(authentication.getName());
+        model.addAttribute("operator",operator);
         return "/main/index";
     }
 
