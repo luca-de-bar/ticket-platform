@@ -4,44 +4,56 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <th:block th:replace="fragments/css :: css-bundle">
-        <!-- CSS UI FRAMEWORKS-->
+        <!-- CSS UI FRAMEWORKS -->
     </th:block>
 </head>
 <body>
-    <main>
-        <!-- ALERTS -->
-        <div>
-            <th:block th:if="${operatorSuccess}">
-                <div th:replace="fragments/operatorSuccess :: operatorSuccess(${operatorSuccess})"></div>
-            </th:block>
-            <th:block th:if="${operatorAlert}">
-                <div th:replace="fragments/operatorAlert :: operatorAlert(${operatorAlert})"></div>
-            </th:block>
-        </div>
-        <section>
-            <form
-                  th:object="${operator}"
-                  th:action="@{/operator/{id}(id=${operator.id})}"
-                  th:method="POST">
+<th:block th:replace="/fragments/navbar :: navbar">
+    <!-- NAVBAR -->
+</th:block>
+<main>
+    <!-- ALERTS -->
+    <div class="container mx-auto px-4">
+        <th:block th:if="${operatorSuccess}">
+            <div th:replace="fragments/operatorSuccess :: operatorSuccess(${operatorSuccess})"></div>
+        </th:block>
+        <th:block th:if="${operatorAlert}">
+            <div th:replace="fragments/operatorAlert :: operatorAlert(${operatorAlert})"></div>
+        </th:block>
+    </div>
+    <section class="flex flex-col justify-center items-center gap-3 mt-28">
+        <form
+                th:object="${operator}"
+                th:action="@{/operator/{id}(id=${operator.id})}"
+                th:method="POST"
+                class="w-full max-w-lg p-6 bg-white rounded-lg shadow">
 
-                <!-- HIDDEN INPUTS -->
-                <input type="hidden" th:field="*{username}" id="operatorUsername">
-                <input type="hidden" th:field="*{password}" id="operatorPassword">
-                <input type="hidden" th:field="*{email}" id="operatorEmail">
-                <input type="hidden" th:field="*{tickets}" id="operatorTickets">
+            <!-- HIDDEN INPUTS -->
+            <input type="hidden" th:field="*{username}" id="operatorUsername">
+            <input type="hidden" th:field="*{password}" id="operatorPassword">
+            <input type="hidden" th:field="*{email}" id="operatorEmail">
+            <input type="hidden" th:field="*{tickets}" id="operatorTickets">
 
-                <div class="mb-3">
-                    <label for="status">Stato operatore</label>
-                    <select id="status" th:field="*{active}">
-                        <option value="true">Attivo</option>
-                        <option value="false">In Pausa</option>
-                    </select>
+            <div class="mb-4 relative">
+                <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Stato operatore:</label>
+                <select id="status" th:field="*{active}" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="true">Attivo</option>
+                    <option value="false">In Pausa</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current size-6 translate-y-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                    </svg>
                 </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Conferma</button>
-                </div>
-            </form>
-        </section>
-    </main>
+            </div>
+            <div class="mb-6 text-center flex flex-column items-center justify-center gap-3">
+                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Conferma</button>
+                <a th:href="@{/}" class="w-full">
+                    <button type="button" class="w-full btn btn-warning text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Torna ai ticket</button>
+                </a>
+            </div>
+        </form>
+    </section>
+</main>
 </body>
 </html>

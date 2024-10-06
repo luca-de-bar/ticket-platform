@@ -45,7 +45,7 @@ public class Ticket {
     private Operator operator;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
-    private List<Notes> notes;
+    private List<Nota> notes;
 
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
@@ -75,11 +75,11 @@ public class Ticket {
         this.operator = operator;
     }
 
-    public List<Notes> getNotes() {
+    public List<Nota> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<Notes> notes) {
+    public void setNotes(List<Nota> notes) {
         this.notes = notes;
     }
 

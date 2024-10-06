@@ -1,21 +1,20 @@
 package com.milestone4.ticketplatform.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
-public class Notes {
+@Table(name = "note")
+public class Nota {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
-    @NotNull
     private String contenuto;
 
     @CreationTimestamp
@@ -38,16 +37,21 @@ public class Notes {
         this.id = id;
     }
 
-    public @NotEmpty @NotNull String getContenuto() {
+    public String getContenuto() {
         return contenuto;
     }
 
-    public void setContenuto(@NotEmpty @NotNull String contenuto) {
+    public void setContenuto(String contenuto) {
         this.contenuto = contenuto;
     }
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public String getFormattedCreationDate(){
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return creationDate.format(FORMATTER);
     }
 
     public void setCreationDate(LocalDateTime creationDate) {

@@ -1,11 +1,9 @@
 package com.milestone4.ticketplatform.controllers;
 
+import com.milestone4.ticketplatform.models.Nota;
 import com.milestone4.ticketplatform.models.Operator;
 import com.milestone4.ticketplatform.models.Ticket;
-import com.milestone4.ticketplatform.services.CategoryService;
-import com.milestone4.ticketplatform.services.CustomerService;
-import com.milestone4.ticketplatform.services.OperatorService;
-import com.milestone4.ticketplatform.services.TicketService;
+import com.milestone4.ticketplatform.services.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,6 +30,9 @@ public class TicketController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private NotesService notesService;
 
     //index
     @GetMapping
@@ -82,7 +83,33 @@ public class TicketController {
         model.addAttribute("operators",operatorService.findAll());
         model.addAttribute("categories",categoryService.findAll());
         model.addAttribute("customers",customerService.findAll());
+
+        //Nuova istanza di Nota per la creazione di nuove note
+        model.addAttribute("nota",new Nota());
+
+        //Trovo le note del ticket specifico
+        Ticket ticket = ticketService.findById(id);
+        model.addAttribute("notes",ticket.getNotes());
+
         return "/main/show";
+    }
+
+    //Creazione nuova nota
+    @PostMapping("/note/{tid}")
+    public String addNote(@PathVariable("tid") Long ticketID,
+                          @ModelAttribute("nota") Nota formNota,
+                          Authentication authentication){
+
+        //Trovo UserID corrente
+        Operator operator = operatorService.findByUsername(authentication.getName()).get();
+
+        //Set operatore e ticketID
+        formNota.setOperator(operator);
+        formNota.setTicket(ticketService.findById(ticketID));
+
+        //Salvo la nota.
+        notesService.save(formNota);
+        return "redirect:/";
     }
 
     //edit + update

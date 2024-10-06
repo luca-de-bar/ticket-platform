@@ -74,7 +74,7 @@
                 </div>
 
                 <!--REPORT-->
-                <div class="mb-4" sec:authorize="hasAuthority('Operatore')">
+                <div class="mb-4">
                     <label for="report" class="form-label">Report intervento</label>
                     <textarea class="form-control" id="report" rows="3" th:field="*{report}" th:disabled="${ticket.closingDate != null}"></textarea>
                 </div>
@@ -84,7 +84,7 @@
                     <label for="status" class="form-label">Stato ticket</label>
                     <select id="status" class="form-select" th:field="*{status}" th:disabled="${ticket.closingDate != null}">
                         <option value="Da Fare" sec:authorize="hasAuthority('Admin')">Da Fare</option>
-                        <option selected value="In corso">In corso</option>
+                        <option value="In Corso">In Corso</option>
                         <option value="Completato">Completato</option>
                     </select>
                 </div>

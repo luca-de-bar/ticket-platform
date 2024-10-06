@@ -40,4 +40,22 @@ public class OperatorService{
     public Operator update (Operator operator){
         return repository.save(operator);
     }
+
+
+    //Stato operatore
+    public void checkAndUpdateStatus(Operator operator) throws Exception{
+       //Se operatore si vuole disattivare
+        if (!operator.isActive()){
+           //Se operatore ha ticket
+            if( !operator.getTickets().isEmpty()){
+               for (Ticket ticket : operator.getTickets()){
+                   //Lancio eccezione se 'Da Fare' o 'In Corso'
+                   if(ticket.getStatus().equals("Da Fare") || ticket.getStatus().equals("In Corso")){
+                       throw new Exception("Hai ticket da completare!");
+                   }
+               }
+           }
+       }
+        repository.save(operator);
+    }
 }

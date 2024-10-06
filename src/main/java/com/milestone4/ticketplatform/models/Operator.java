@@ -33,7 +33,7 @@ public class Operator {
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "operator", cascade = CascadeType.REMOVE)
-    private List<Notes> notes;
+    private List<Nota> notes;
 
     @OneToMany(mappedBy = "operator", fetch = FetchType.EAGER)
     private List<Ticket> tickets;
@@ -90,11 +90,11 @@ public class Operator {
         this.roles = roles;
     }
 
-    public List<Notes> getNotes() {
+    public List<Nota> getNotes() {
         return notes;
     }
 
-    public void setNotes(List<Notes> notes) {
+    public void setNotes(List<Nota> notes) {
         this.notes = notes;
     }
 
