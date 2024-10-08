@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,15 +35,16 @@ public class TicketController {
     @Autowired
     private NotesService notesService;
 
+
     //index
     @GetMapping
     public String index(Model model, Authentication authentication){
-        model.addAttribute("tickets",ticketService.findAllSortedByRecent());
         model.addAttribute("username",authentication);
         model.addAttribute("operators",operatorService.findAll());
-
-        //pass current operator for status change button
-        Optional<Operator> operator = operatorService.findByUsername(authentication.getName());
+        //pass current operator for status button + index filter by operator
+        Optional <Operator> operator = operatorService.findByUsername(authentication.getName());
+        //findTicketsByRole shows all tickets to admin and only assigned ticket to operators.
+        model.addAttribute("tickets", ticketService.findTicketsByRole(operator.get()));
         model.addAttribute("operator",operator);
         return "/main/index";
     }
@@ -148,5 +150,24 @@ public class TicketController {
         ticketService.delete(id);
         attributes.addFlashAttribute("dangerMessage","Il Ticket " + id + " è stato eliminato correttamente");
         return "redirect:/";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "title", required = false) String title,
+                         Model model,
+                         Authentication authentication){
+
+        //Find current user authenticated
+        Optional <Operator> operator = operatorService.findByUsername(authentication.getName());
+        model.addAttribute("operator",operator);
+
+        List<Ticket> tickets;
+        if(title == null || title.isEmpty()){
+            tickets = ticketService.findAllSortedByRecent();
+        } else {
+            tickets=  ticketService.findByTitle(title);
+        }
+        model.addAttribute("tickets",tickets);
+        return "/main/index";
     }
 }

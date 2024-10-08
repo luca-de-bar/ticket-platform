@@ -21,6 +21,8 @@ public class Ticket {
     @NotNull
     private String status;
 
+    private String title;
+
     @NotEmpty
     @NotNull
     private String description;
@@ -147,5 +149,17 @@ public class Ticket {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setClosingDate(LocalDateTime closingDate) {
+        this.closingDate = closingDate;
     }
 }

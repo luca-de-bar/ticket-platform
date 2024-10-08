@@ -30,7 +30,7 @@ public class Operator {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @OneToMany(mappedBy = "operator", cascade = CascadeType.REMOVE)
     private List<Nota> notes;
@@ -43,7 +43,7 @@ public class Operator {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -82,11 +82,11 @@ public class Operator {
         this.email = email;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

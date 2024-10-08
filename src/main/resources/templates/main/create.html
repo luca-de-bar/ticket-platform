@@ -20,6 +20,13 @@
                     th:action="@{/create}"
                     th:method="POST">
 
+                <!--TITOLO-->
+                <div class="mb-4">
+                    <label for="title" class="form-label">Titolo ticket</label>
+                    <input type="text" id="title" class="form-control"  th:disabled="${operators.size()==0}" th:field="*{title}">
+                </div>
+
+
                 <!--OPERATOR-->
                 <div class="mb-4">
                     <label for="operator" class="form-label">Seleziona un operatore</label>

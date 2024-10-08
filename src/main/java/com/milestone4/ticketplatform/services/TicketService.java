@@ -1,5 +1,7 @@
 package com.milestone4.ticketplatform.services;
 
+import com.milestone4.ticketplatform.models.Operator;
+import com.milestone4.ticketplatform.models.Role;
 import com.milestone4.ticketplatform.models.Ticket;
 import com.milestone4.ticketplatform.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +51,24 @@ public class TicketService {
     public void delete(Long id){
         repository.deleteById(id);
     }
+
+    public List <Ticket> findByOperator (Operator operator){
+        return repository.getAllByOperatorEquals(operator);
+    }
+
+    //Find tickets by Assigned Operator
+    public List<Ticket> findTicketsByRole (Operator operator){
+        //if admin see all tickets, otherwise see only assigned tickets.
+        for (Role role : operator.getRoles()){
+            if (role.getName().equals("Admin")){
+                return findAllSortedByRecent();
+            }
+        }
+        return findByOperator(operator);
+    }
+
+    public List<Ticket>findByTitle(String title){
+        return repository.findAllByTitleContainingIgnoreCase(title);
+    }
+
 }

@@ -11,7 +11,7 @@
     <th:block th:replace="/fragments/navbar :: navbar">
         <!--NAVBAR-->
     </th:block>
-    <main class="px-16 flex flex-col items-center">
+    <main class="px-16 flex flex-col items-start mt-4">
         <div class="w-25" id="alert-box">
             <th:block th:if="${successMessage}">
                 <div th:replace="fragments/success :: successAlert(${successMessage})"></div>
@@ -21,10 +21,24 @@
             </th:block>
         </div>
 
-        <div class="flex flex-row-reverse w-full justify-between items-start mt-[5rem]">
+        <!-- SEARCH TICKET FORM -->
+        <div class="self-start ml-[16rem] mt-[5rem]"> <!-- Modificato per allineamento a sinistra -->
+            <form th:action="@{/search}" name="title" method="get" class="w-full max-w-sm">
+                <div class="flex flex-row justify-content-center align-items-center gap-2">
+                    <input name="title" id="searchTicket" type="text" class="form-control" placeholder="Titolo ticket" aria-label="Ticket title">
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            Cerca
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex flex-row-reverse w-full justify-between items-start">
 
             <!-- BUTTONS CREATE + OPERATOR-->
-            <div class="flex flex-col justify-center items-center gap-4">
+            <div class="flex flex-col justify-center items-center gap-4 mt-5">
                 <form sec:authorize="hasAuthority('Admin')" th:action="@{/create}" method="GET" class="mt-2 flex flex-row justify-end items-center">
                     <button type="submit" class="btn btn-success px-3">
                         + Crea Ticket
@@ -37,15 +51,15 @@
 
             <section class="mt-5 flex flex-row justify-center items-center flex-grow ml-[7rem]" id="table">
                 <div>
+                    <!-- TICKETS TABLE-->
                     <section class="tickets-container">
-
-                        <!-- TICKETS TABLE-->
                         <div>
                             <div class="relative overflow-x-auto">
                                 <table class="w-full text-md text-left rtl:text-right text-gray-500" th:if="${tickets.size()>0}">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-center">#</th>
+                                        <th scope="col" class="px-6 py-3 text-center">Titolo</th>
                                         <th scope="col" class="px-6 py-3 text-center">Data Creazione</th>
                                         <th scope="col" class="px-6 py-3 text-center">Chiuso il</th>
                                         <th scope="col" class="px-6 py-3 text-center">Richiedente</th>
@@ -59,6 +73,7 @@
                                     <tbody>
                                     <tr class="bg-white border-b text-center" th:each="ticket : ${tickets}">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" th:text="${ticket.id}"></th>
+                                        <th class="px-6 py-4" th:text="${ticket.title}"></th>
                                         <th class="px-6 py-4" th:text="${ticket.getFormattedCreationDate()}"></th>
                                         <th class="px-6 py-4" th:if="${ticket.closingDate != null}" th:text="${ticket.getFormattedClosingDate()}"></th>
                                         <th class="px-6 py-4" th:if="${ticket.closingDate == null}" th:text="|Non chiuso|"></th>
@@ -99,7 +114,7 @@
                                 </table>
                                 <!-- IF NO TICKET AVAILABLE IN TABLE-->
                                 <section th:unless="${tickets.size()>0}" class="text-center">
-                                    <h1 class="fs-2 ml-[10rem]">Non ci sono ticket..</h1>
+                                    <h1 class="fs-2 ml-[10rem]">Non hai ticket assegnati..</h1>
                                 </section>
 
 
