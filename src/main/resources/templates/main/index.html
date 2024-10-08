@@ -25,7 +25,7 @@
 
             <!-- BUTTONS CREATE + OPERATOR-->
             <div class="flex flex-col justify-center items-center gap-4">
-                <form sec:authorize="hasAuthority('Admin')" th:action="@{/create}" method="GET" class="mt-5 flex flex-row justify-end items-center">
+                <form sec:authorize="hasAuthority('Admin')" th:action="@{/create}" method="GET" class="mt-2 flex flex-row justify-end items-center">
                     <button type="submit" class="btn btn-success px-3">
                         + Crea Ticket
                     </button>

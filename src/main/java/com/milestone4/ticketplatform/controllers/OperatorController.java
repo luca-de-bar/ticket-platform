@@ -19,7 +19,6 @@ public class OperatorController {
 
     @GetMapping("/{id}")
     public String personalArea(@PathVariable("id") Long id, Model model, Authentication authentication){
-        //model.addAttribute("auth", authentication);
         model.addAttribute("operator",operatorService.findById(id));
         return "operators/info";
     }

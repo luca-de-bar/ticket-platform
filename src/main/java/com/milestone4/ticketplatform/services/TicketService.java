@@ -25,11 +25,7 @@ public class TicketService {
 
     //Save a new ticket
     public Ticket store (Ticket ticket){
-        //If ticket.status "in corso" set operator.active = false
-       if(ticket.getStatus().equals("In corso")){
-           System.out.println("Ticket in corso!");
-           ticket.getOperator().setActive(false);
-       }
+        ticket.getOperator().setActive(false);
         return repository.save(ticket);
     }
 
