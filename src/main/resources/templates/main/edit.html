@@ -22,6 +22,7 @@
                     th:method="POST">
 
                 <input type="hidden" th:field="*{creationDate}" id="creationDateHidden">
+                <input type="hidden" th:field="*{title}" id="title">
                 <input sec:authorize="hasAuthority('Operatore')" type="hidden" th:field="*{operator.id}" id="operatorIdHidden">
                 <input sec:authorize="hasAuthority('Operatore')" type="hidden" th:field="*{priority}" id="priorityHidden">
 

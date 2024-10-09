@@ -3,6 +3,7 @@ package com.milestone4.ticketplatform.controllers;
 import com.milestone4.ticketplatform.models.Nota;
 import com.milestone4.ticketplatform.models.Operator;
 import com.milestone4.ticketplatform.models.Ticket;
+import com.milestone4.ticketplatform.security.DatabaseUserDetails;
 import com.milestone4.ticketplatform.services.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +40,16 @@ public class TicketController {
     //index
     @GetMapping
     public String index(Model model, Authentication authentication){
-        model.addAttribute("username",authentication);
-        model.addAttribute("operators",operatorService.findAll());
-        //pass current operator for status button + index filter by operator
-        Optional <Operator> operator = operatorService.findByUsername(authentication.getName());
-        //findTicketsByRole shows all tickets to admin and only assigned ticket to operators.
-        model.addAttribute("tickets", ticketService.findTicketsByRole(operator.get()));
-        model.addAttribute("operator",operator);
+
+        //Find current logged user
+        Optional <Operator> optionalOperator = operatorService.findByUsername(authentication.getName());
+        Operator loggedOperator = operatorService.optionalToOperator(optionalOperator);
+
+        //Pass logged user to findTicketsByRole
+        //shows all tickets to admin and only assigned ticket to operators.
+        List<Ticket> tickets = ticketService.findTicketsByRole(loggedOperator);
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("operator",loggedOperator);
         return "/main/index";
     }
 

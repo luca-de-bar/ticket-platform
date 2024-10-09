@@ -52,6 +52,7 @@ public class TicketService {
         repository.deleteById(id);
     }
 
+    //Find By Operator Logged
     public List <Ticket> findByOperator (Operator operator){
         return repository.getAllByOperatorEquals(operator);
     }
@@ -67,6 +68,7 @@ public class TicketService {
         return findByOperator(operator);
     }
 
+    //Search Form
     public List<Ticket>findByTitle(String title){
         return repository.findAllByTitleContainingIgnoreCase(title);
     }

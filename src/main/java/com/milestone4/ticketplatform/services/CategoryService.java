@@ -1,7 +1,6 @@
 package com.milestone4.ticketplatform.services;
 
 import com.milestone4.ticketplatform.models.Category;
-import com.milestone4.ticketplatform.models.Operator;
 import com.milestone4.ticketplatform.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

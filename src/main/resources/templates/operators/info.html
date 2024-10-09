@@ -22,37 +22,42 @@
         </th:block>
     </div>
     <section class="flex flex-col justify-center items-center gap-3 mt-28">
-        <form
-                th:object="${operator}"
-                th:action="@{/operator/{id}(id=${operator.id})}"
-                th:method="POST"
-                class="w-full max-w-lg p-6 bg-white rounded-lg shadow">
+        <div class="forms-container w-full max-w-lg p-6 bg-white rounded-lg shadow">
+            <form
+                    th:object="${operator}"
+                    th:action="@{/operator/{id}(id=${operator.id})}"
+                    th:method="POST">
 
-            <!-- HIDDEN INPUTS -->
-            <input type="hidden" th:field="*{username}" id="operatorUsername">
-            <input type="hidden" th:field="*{password}" id="operatorPassword">
-            <input type="hidden" th:field="*{email}" id="operatorEmail">
-            <input type="hidden" th:field="*{tickets}" id="operatorTickets">
-
-            <div class="mb-4 relative">
-                <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Stato operatore:</label>
-                <select id="status" th:field="*{active}" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="true">Attivo</option>
-                    <option value="false">Occupato / In Pausa</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg class="fill-current size-6 translate-y-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
-                    </svg>
+                <!-- HIDDEN INPUTS -->
+                <input type="hidden" th:field="*{username}" id="operatorUsername">
+                <input type="hidden" th:field="*{password}" id="operatorPassword">
+                <input type="hidden" th:field="*{email}" id="operatorEmail">
+                <input type="text" th:field="*{tickets}" id="operatorTickets">
+                <div th:each="role : ${operator.roles}">
+                    <input type="hidden" th:field="*{roles}" th:value="${role.id}" id="operatorRoles">
                 </div>
-            </div>
-            <div class="mb-6 text-center flex flex-column items-center justify-center gap-3">
-                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Conferma</button>
-                <a th:href="@{/}" class="w-full">
-                    <button type="button" class="w-full btn btn-warning text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Torna ai ticket</button>
-                </a>
-            </div>
-        </form>
+                <input type="hidden" th:field="${operator.id}">
+
+                <div class="mb-4 relative">
+                    <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Stato operatore:</label>
+                    <select id="status" th:field="*{active}" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option value="true">Attivo</option>
+                        <option value="false">Occupato / In Pausa</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current size-6 translate-y-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mb-6 text-center flex flex-column items-center justify-center gap-3">
+                    <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Conferma</button>
+                </div>
+            </form>
+            <form th:action="@{/}">
+                <button type="submit" class="w-full btn btn-warning text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Torna ai ticket</button>
+            </form>
+        </div>
     </section>
 </main>
 </body>

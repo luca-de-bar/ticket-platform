@@ -44,8 +44,10 @@
                         + Crea Ticket
                     </button>
                 </form>
-                <a th:href="@{/operator/{id}(id=${operator.get().id})}">
-                    <button class="btn btn-primary" type="button">Stato Operatore</button>
+            </div>
+            <div class="operator">
+                <a th:href="@{/operator/{id}(id=${operator.id})}">
+                    <button class="btn btn-primary" type="submit">Stato Operatore</button>
                 </a>
             </div>
 

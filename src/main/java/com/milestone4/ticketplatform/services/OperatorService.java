@@ -1,6 +1,7 @@
 package com.milestone4.ticketplatform.services;
 
 import com.milestone4.ticketplatform.models.Operator;
+import com.milestone4.ticketplatform.models.Role;
 import com.milestone4.ticketplatform.models.Ticket;
 import com.milestone4.ticketplatform.repositories.OperatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,15 @@ public class OperatorService{
         return repository.save(operator);
     }
 
+    //From Optional to Operator
+    public Operator optionalToOperator(Optional<Operator> operator){
+        return operator.get();
+    }
+
 
     //Stato operatore
     public void checkAndUpdateStatus(Operator operator) throws Exception{
-       //Se operatore si vuole disattivare
+        //Se operatore si vuole disattivare
         if (!operator.isActive()){
            //Se operatore ha ticket
             if( !operator.getTickets().isEmpty()){
