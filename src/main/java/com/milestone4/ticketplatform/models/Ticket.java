@@ -23,6 +23,8 @@ public class Ticket {
     @NotNull
     private String status;
 
+    @NotEmpty
+    @NotNull
     private String title;
 
     @NotEmpty
@@ -40,8 +42,12 @@ public class Ticket {
 
     private LocalDateTime closingDate;
 
+    @NotEmpty
+    @NotNull
     private String priority;
 
+    @NotEmpty
+    @NotNull
     private String report;
 
     @ManyToOne

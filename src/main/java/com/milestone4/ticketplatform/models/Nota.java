@@ -1,11 +1,9 @@
 package com.milestone4.ticketplatform.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Formula;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,6 +15,7 @@ public class Nota {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String contenuto;
 
     @CreationTimestamp

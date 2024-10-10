@@ -27,6 +27,7 @@ public class Operator {
 
     @NotNull
     @NotEmpty
+    @Column(unique = true)
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
