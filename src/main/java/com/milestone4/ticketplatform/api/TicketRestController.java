@@ -1,6 +1,5 @@
 package com.milestone4.ticketplatform.api;
 
-import com.milestone4.ticketplatform.models.Category;
 import com.milestone4.ticketplatform.models.Ticket;
 import com.milestone4.ticketplatform.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
