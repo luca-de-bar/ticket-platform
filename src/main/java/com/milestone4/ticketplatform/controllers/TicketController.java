@@ -162,8 +162,10 @@ public class TicketController {
                          Authentication authentication){
 
         //Find current user authenticated
-        Optional <Operator> operator = operatorService.findByUsername(authentication.getName());
-        model.addAttribute("operator",operator);
+        Optional <Operator> optionalOperator = operatorService.findByUsername(authentication.getName());
+        Operator loggedOperator = operatorService.optionalToOperator(optionalOperator);
+
+        model.addAttribute("operator",loggedOperator);
 
         List<Ticket> tickets;
         if(title == null || title.isEmpty()){
