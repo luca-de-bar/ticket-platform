@@ -104,7 +104,8 @@ public class TicketController {
     @PostMapping("/note/{tid}")
     public String addNote(@PathVariable("tid") Long ticketID,
                           @ModelAttribute("nota") Nota formNota,
-                          Authentication authentication){
+                          Authentication authentication,
+                          RedirectAttributes attributes){
 
         //Trovo UserID corrente
         Operator operator = operatorService.findByUsername(authentication.getName()).get();
@@ -115,6 +116,7 @@ public class TicketController {
 
         //Salvo la nota.
         notesService.save(formNota);
+        attributes.addFlashAttribute("successMessage","La nota è stata aggiunta correttamente al ticket " + formNota.getTicket().getId());
         return "redirect:/";
     }
 

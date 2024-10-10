@@ -1,5 +1,6 @@
 package com.milestone4.ticketplatform.services;
 
+import com.milestone4.ticketplatform.models.Category;
 import com.milestone4.ticketplatform.models.Operator;
 import com.milestone4.ticketplatform.models.Role;
 import com.milestone4.ticketplatform.models.Ticket;
@@ -73,4 +74,12 @@ public class TicketService {
         return repository.findAllByTitleContainingIgnoreCase(title);
     }
 
+    //Tickets by category
+    public List<Ticket>findByCategory(Long id){
+        return repository.getAllByCategoryId(id);
+    }
+
+    public List<Ticket> findByStatus(String status) {
+        return repository.getAllByStatusEqualsIgnoreCase(status);
+    }
 }

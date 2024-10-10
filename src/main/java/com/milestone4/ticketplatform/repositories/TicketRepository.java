@@ -11,4 +11,9 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket,Long> {
     List<Ticket> getAllByOperatorEquals(Operator operator);
     List<Ticket> findAllByTitleContainingIgnoreCase(String title);
+
+
+    //API
+    List <Ticket> getAllByCategoryId(Long id);
+    List<Ticket> getAllByStatusEqualsIgnoreCase(String status);
 }
