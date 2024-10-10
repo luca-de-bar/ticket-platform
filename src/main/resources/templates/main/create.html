@@ -20,17 +20,25 @@
                     th:action="@{/create}"
                     th:method="POST">
 
+                <input type="hidden" th:field="${ticket.report}" th:value="${ticket.report}">
+
                 <!--TITOLO-->
                 <div class="mb-4">
                     <label for="title" class="form-label">Titolo ticket</label>
-                    <input type="text" id="title" class="form-control"  th:disabled="${operators.size()==0}" th:field="*{title}">
+                    <input type="text" id="title" class="form-control" th:field="*{title}" th:errorclass="is-invalid">
+                    <!-- validation feedback -->
+                    <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
                 </div>
 
 
                 <!--OPERATOR-->
                 <div class="mb-4">
                     <label for="operator" class="form-label">Seleziona un operatore</label>
-                    <select id="operator" class="form-select"  th:disabled="${operators.size()==0}" th:field="*{operator}">
+                    <select id="operator" class="form-select"  th:disabled="${operators.isEmpty()}" th:field="*{operator}">
                         <option selected value="" th:if="${operators.size()==0}" th:text="|Non ci sono operatori disponibili|">-- Seleziona un operatore --</option>
                         <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.username}"></option>
                     </select>
@@ -73,6 +81,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <!--STATO TICKET-->
                 <div class="mb-4">
                     <label for="status" class="form-label">Stato ticket</label>
@@ -81,6 +90,7 @@
                         <option value="In Corso">In Corso</option>
                     </select>
                 </div>
+
                 <div class="mb-4 d-flex flex-row-reverse justify-content-between align-items-center">
                     <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-all">
                         Crea Ticket

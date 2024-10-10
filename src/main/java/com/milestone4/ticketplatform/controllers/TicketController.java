@@ -74,6 +74,7 @@ public class TicketController {
             model.addAttribute("operators",operatorService.findAll());
             model.addAttribute("categories",categoryService.findAll());
             model.addAttribute("customers",customerService.findAll());
+            bindingResult.getAllErrors().forEach(error -> System.out.println(error.toString()));
             return "/main/create";
         } else {
             ticketService.store(formTicket);

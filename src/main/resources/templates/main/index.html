@@ -22,11 +22,11 @@
         </div>
 
         <!-- SEARCH TICKET FORM -->
-        <div class="self-start ml-[16rem] mt-[5rem]"> <!-- Modificato per allineamento a sinistra -->
+        <div class="self-start ml-[16rem] mt-[5rem]" th:if="${tickets.size()>0}">
             <form th:action="@{/search}" name="title" method="get" class="w-full max-w-sm">
                 <div class="flex flex-row justify-content-center align-items-center gap-2">
                     <input name="title" id="searchTicket" type="text" class="form-control" placeholder="Titolo ticket" aria-label="Ticket title">
-                    <div class="mt-2">
+                    <div class="mt-2 text-center">
                         <button type="submit" class="btn btn-sm btn-primary">
                             Cerca
                         </button>

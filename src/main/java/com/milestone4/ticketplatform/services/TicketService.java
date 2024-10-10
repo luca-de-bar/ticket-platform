@@ -28,19 +28,21 @@ public class TicketService {
 
     //Save a new ticket
     public Ticket store (Ticket ticket){
-        ticket.getOperator().setActive(false);
+        //If ticket opened with status "In Corso"
+        if(ticket.getStatus().equals("In Corso")){
+            ticket.getOperator().setActive(false);
+        }
         return repository.save(ticket);
     }
 
     //Update a new ticket
     public Ticket update (Ticket ticket){
-        //If ticket.status "Da fare" :
-        if (ticket.getStatus().equals("In corso")){
+        //If ticket.status "In Corso" :
+        if (ticket.getStatus().equals("In Corso")){
             ticket.getOperator().setActive(false);
         }
-        //If ticket.status "completato" :
+        //If ticket.status "Completato" :
         if(ticket.getStatus().equals("Completato")){
-            //Set Operator status : active
             ticket.getOperator().setActive(true);
             //Set closing date to LocalDate.now()
             ticket.setClosingDate();
@@ -53,14 +55,14 @@ public class TicketService {
         repository.deleteById(id);
     }
 
-    //Find By Operator Logged
+    //Find By Operator
     public List <Ticket> findByOperator (Operator operator){
         return repository.getAllByOperatorEquals(operator);
     }
 
     //Find tickets by Assigned Operator
     public List<Ticket> findTicketsByRole (Operator operator){
-        //if admin see all tickets, otherwise see only assigned tickets.
+        //if admin : see all tickets, otherwise see only assigned tickets.
         for (Role role : operator.getRoles()){
             if (role.getName().equals("Admin")){
                 return findAllSortedByRecent();

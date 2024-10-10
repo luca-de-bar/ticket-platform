@@ -46,7 +46,6 @@ public class Ticket {
     @NotNull
     private String priority;
 
-    @NotEmpty
     @NotNull
     private String report;
 
