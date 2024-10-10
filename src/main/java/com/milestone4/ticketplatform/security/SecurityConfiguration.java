@@ -15,7 +15,7 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests()
-                    .requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**", "/error").permitAll()
+                    .requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**", "/error", "/api/**") .permitAll()
                     .requestMatchers("/create").hasAuthority("Admin")
                     .requestMatchers("/**").authenticated()
                     .and()

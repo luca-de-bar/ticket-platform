@@ -1,5 +1,6 @@
 package com.milestone4.ticketplatform.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -32,9 +33,11 @@ public class Operator {
     private List<Role> roles;
 
     @OneToMany(mappedBy = "operator", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Nota> notes;
 
     @OneToMany(mappedBy = "operator", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Ticket> tickets;
 
     public Operator(){

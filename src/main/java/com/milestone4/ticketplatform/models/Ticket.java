@@ -1,5 +1,7 @@
 package com.milestone4.ticketplatform.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +32,7 @@ public class Ticket {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "customer_id",nullable = false)
+    @JsonBackReference
     private Customer customer;
 
     @CreationTimestamp
@@ -43,14 +46,17 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "operator_id",nullable = false)
+    @JsonBackReference
     //@Formula("SELECT * FROM operators where stato_operatore='true'")
     private Operator operator;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Nota> notes;
 
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
+    @JsonBackReference
     private Category category;
 
     public Long getId() {
@@ -119,8 +125,12 @@ public class Ticket {
     }
 
     public String getFormattedClosingDate(){
-        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return closingDate.format(FORMATTER);
+
+        if(this.closingDate != null){
+            DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            return closingDate.format(FORMATTER);
+        }
+        return "Ticket is not closed yet";
     }
 
     public void setClosingDate() {

@@ -1,5 +1,6 @@
 package com.milestone4.ticketplatform.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class Category {
 
     //FK ticket-id
     @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Ticket> tickets;
 
     public Long getId() {

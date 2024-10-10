@@ -1,5 +1,7 @@
 package com.milestone4.ticketplatform.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
@@ -23,10 +25,12 @@ public class Nota {
     //FK Operator ID
     @ManyToOne
     @JoinColumn(name = "operator_id",nullable = false)
+    @JsonBackReference
     private Operator operator;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
+    @JsonBackReference
     private Ticket ticket;
 
     public Long getId() {
