@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "operators")
 public class Operator {
 
     @Id
