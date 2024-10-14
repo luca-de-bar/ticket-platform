@@ -1,6 +1,5 @@
 package com.milestone4.ticketplatform.services;
 
-import com.milestone4.ticketplatform.models.Category;
 import com.milestone4.ticketplatform.models.Operator;
 import com.milestone4.ticketplatform.models.Role;
 import com.milestone4.ticketplatform.models.Ticket;
