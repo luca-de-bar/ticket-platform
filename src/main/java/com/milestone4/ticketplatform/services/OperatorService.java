@@ -64,4 +64,14 @@ public class OperatorService{
        }
         repository.save(operator);
     }
+
+    //Save a new operator
+    public Operator store(Operator operator){
+        return repository.save(operator);
+    }
+
+    //Encode password for new operators
+    public void encodePassword(Operator operator){
+        operator.setPassword("{noop}" + operator.getPassword());
+    }
 }

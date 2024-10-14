@@ -17,6 +17,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                     .requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**", "/error", "/api/**") .permitAll()
                     .requestMatchers("/create").hasAuthority("Admin")
+                    .requestMatchers("/register").hasAuthority("Admin")
                     .requestMatchers("/**").authenticated()
                     .and()
                 .formLogin()

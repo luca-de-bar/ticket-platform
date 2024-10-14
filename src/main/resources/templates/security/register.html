@@ -12,15 +12,6 @@
 </head>
 <body>
 <section class="bg-gray-50">
-    <!-- ALERTS -->
-    <div class="container mx-auto px-4">
-        <th:block th:if="${operatorSuccess}">
-            <div th:replace="fragments/operatorSuccess :: operatorSuccess(${operatorSuccess})"></div>
-        </th:block>
-        <th:block th:if="${operatorAlert}">
-            <div th:replace="fragments/operatorAlert :: operatorAlert(${operatorAlert})"></div>
-        </th:block>
-    </div>
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <!--LOGO -->
         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
@@ -28,36 +19,73 @@
             BlueTickets
         </a>
         <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+            <!-- ALERTS -->
+            <div class="container mx-auto px-4">
+                <th:block th:if="${operatorSuccess}">
+                    <div th:replace="fragments/operatorSuccess :: operatorSuccess(${operatorSuccess})"></div>
+                </th:block>
+                <th:block th:if="${operatorAlert}">
+                    <div th:replace="fragments/operatorAlert :: operatorAlert(${operatorAlert})"></div>
+                </th:block>
+            </div>
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                    Login
+                    Registrati
                 </h1>
 
-                <!--LOGIN FORM -->
-                <form class="space-y-4 md:space-y-6 group" th:action="@{/login}" method="post" id="login-form" novalidate>
-                    <div th:if="${param.error}" class="text-red-500">
-                        Credenziali errate. Per favore riprova.
-                    </div>
+                <!--REGISTER FORM -->
+                <form class="space-y-4 md:space-y-6 group" th:action="@{/register}"
+                      method="post"
+                      id="register-form"
+                      th:object="${operator}"
+                      novalidate>
+
+                    <input type="hidden" th:field="*{active}" th:value="true">
+
+                    <!-- USERNAME -->
                     <div>
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900">
                             Username
                         </label>
-                        <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 block w-full p-2.5" placeholder="username" required="">
+                        <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 block w-full p-2.5" placeholder="username" required th:field="*{username}">
                         <div class="invalid-feedback flex flex-row justify-start items-center mt-2">
                             <span id="username-invalid-feedback" class="text-red-500"></span>
                         </div>
                     </div>
+
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">
+                            E-mail
+                        </label>
+                        <input type="email" name="username" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 block w-full p-2.5" placeholder="yourname@mail.xyz" required th:field="*{email}">
+                        <div class="invalid-feedback flex flex-row justify-start items-center mt-2">
+                            <span id="email-invalid-feedback" class="text-red-500"></span>
+                        </div>
+                    </div>
+
+                    <!-- PASSWORD -->
                     <div>
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900">
                             Password
                         </label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required th:field="*{password}">
                         <div class="invalid-feedback flex flex-row justify-start items-center mt-2">
                             <span id="password-invalid-feedback" class="text-red-500"></span>
                         </div>
                     </div>
 
+                    <!-- ROLE SELECT -->
+                    <div>
+                        <label for="operator-role" class="block mb-2 text-sm font-medium text-gray-900 form-label">
+                            Ruolo Operatore
+                        </label>
+                        <select id="operator-role" class="form-select" th:field="*{roles}">
+                            <option selected value="0">Amministratore</option>
+                            <option value="1">Operatore</option>
+                        </select>
+                    </div>
 
+                    <!-- REMEMBER ME -->
                     <div class="flex items-center justify-between">
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
@@ -67,23 +95,20 @@
                                 <label for="remember" class="text-gray-500">Ricordami</label>
                             </div>
                         </div>
-                        <a href="#" class="text-sm font-medium text-blue-600 hover:underline">
-                            Hai dimenticato la password?
-                        </a>
                     </div>
 
                     <!--SUBMIT BUTTON-->
                     <button type="submit" id="submit" class="w-full text-white bg-blue-600 hover:bg-blue-900 transition-all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                        Log in
+                        Registrati
                     </button>
                     <p class="text-sm font-light text-gray-500">
-                        Non sei registrato? Chiedi ad un amministratore di registrarti.
+                        Sei già registrato? <a th:href="@{/login}" class="font-medium text-primary-600 hover:underline">Login</a>
                     </p>
                 </form>
             </div>
         </div>
     </div>
 </section>
-<script th:src="@{/js/loginValidation.js}"></script>
+<script th:src="@{/js/registerValidation.js}"></script>
 </body>
 </html>

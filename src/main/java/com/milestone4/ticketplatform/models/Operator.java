@@ -12,6 +12,7 @@ import java.util.List;
 public class Operator {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -30,6 +31,7 @@ public class Operator {
     @Column(unique = true)
     private String email;
 
+    @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 

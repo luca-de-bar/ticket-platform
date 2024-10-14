@@ -45,7 +45,10 @@
                     </button>
                 </form>
                 <a th:href="@{/operator/{id}(id=${operator.id})}">
-                    <button class="btn btn-primary" type="submit">Stato Operatore</button>
+                    <button class="btn btn-warning" type="button">Stato Operatore</button>
+                </a>
+                <a th:href="@{/register}" sec:authorize="hasAuthority('Admin')">
+                    <button class="btn btn-primary" type="button">Crea Operatore</button>
                 </a>
             </div>
 
