@@ -1,6 +1,6 @@
 package com.milestone4.ticketplatform.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +27,7 @@ public class Customer {
     private String customerDetails;
 
     @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Ticket> tickets;
 
     public Customer(){

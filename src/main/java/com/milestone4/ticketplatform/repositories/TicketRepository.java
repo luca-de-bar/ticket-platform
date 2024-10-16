@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket,Long> {
+
     List<Ticket> getAllByOperatorEquals(Operator operator);
+
     List<Ticket> findAllByTitleContainingIgnoreCase(String title);
 
 

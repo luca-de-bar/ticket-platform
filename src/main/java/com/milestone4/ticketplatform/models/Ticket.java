@@ -34,7 +34,7 @@ public class Ticket {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "customer_id",nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private Customer customer;
 
     @CreationTimestamp
