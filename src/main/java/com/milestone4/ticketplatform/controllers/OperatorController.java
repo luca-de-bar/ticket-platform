@@ -18,7 +18,7 @@ public class OperatorController {
     private OperatorService operatorService;
 
     @Autowired
-    RolesRepository rolesRepository;
+    private RolesRepository rolesRepository;
 
     @GetMapping("/{id}")
     public String personalArea(@PathVariable("id") Long id, Model model){

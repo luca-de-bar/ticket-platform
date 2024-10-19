@@ -32,7 +32,7 @@
                 <input type="hidden" th:field="*{username}" id="operatorUsername">
                 <input type="hidden" th:field="*{password}" id="operatorPassword">
                 <input type="hidden" th:field="*{email}" id="operatorEmail">
-                <input type="text" th:field="*{tickets}" id="operatorTickets">
+                <input type="hidden" th:field="*{tickets}" id="operatorTickets">
                 <div th:each="role : ${operator.roles}">
                     <input type="hidden" th:field="*{roles}" th:value="${role.id}" id="operatorRoles">
                 </div>
