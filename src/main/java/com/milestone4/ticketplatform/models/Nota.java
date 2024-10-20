@@ -24,12 +24,12 @@ public class Nota {
     //FK Operator ID
     @ManyToOne
     @JoinColumn(name = "operator_id",nullable = false)
-    @JsonBackReference
+    @JsonBackReference("operator-notes")
     private Operator operator;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
-    @JsonBackReference
+    @JsonBackReference("ticket-notes")
     private Ticket ticket;
 
     public Long getId() {

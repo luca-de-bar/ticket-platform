@@ -36,11 +36,11 @@ public class Operator {
     private List<Role> roles;
 
     @OneToMany(mappedBy = "operator", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @JsonManagedReference("operator-notes")
     private List<Nota> notes;
 
     @OneToMany(mappedBy = "operator", fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonManagedReference("operator-tickets")
     private List<Ticket> tickets;
 
     public Operator(){

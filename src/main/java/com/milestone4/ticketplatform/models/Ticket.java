@@ -2,6 +2,7 @@ package com.milestone4.ticketplatform.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -34,7 +35,7 @@ public class Ticket {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "customer_id",nullable = false)
-    @JsonManagedReference
+    @JsonBackReference("customer-tickets")
     private Customer customer;
 
     @CreationTimestamp
@@ -51,17 +52,16 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "operator_id",nullable = false)
-    @JsonBackReference
-    //@Formula("SELECT * FROM operators where stato_operatore='true'")
+    @JsonBackReference("operator-tickets")
     private Operator operator;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @JsonManagedReference("ticket-notes")
     private List<Nota> notes;
 
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
-    @JsonBackReference
+    @JsonBackReference("ticket-categories")
     private Category category;
 
     public Long getId() {

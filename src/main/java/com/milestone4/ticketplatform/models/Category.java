@@ -23,7 +23,7 @@ public class Category {
 
     //FK ticket-id
     @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @JsonManagedReference("ticket-categories")
     private List<Ticket> tickets;
 
     public Long getId() {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -23,6 +24,11 @@ public class TicketService {
     //Get ticket by ID
     public Ticket findById(Long id){
         return repository.findById(id).get();
+    }
+
+    //Get Optional Ticket ID
+    public Optional<Ticket> findOptionalTicket(Long id){
+        return repository.findById(id);
     }
 
     //Save a new ticket
